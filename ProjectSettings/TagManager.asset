@@ -11,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Holdable
   - 
   - 
   - 
@@ -40,4 +40,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 1278956521
+    locked: 0
+  - name: Players
+    uniqueID: 3443226399
+    locked: 0
+  - name: Holdables
+    uniqueID: 3233221431
+    locked: 0
+  - name: Environment
+    uniqueID: 2864969993
     locked: 0
