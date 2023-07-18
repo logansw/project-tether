@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Player : MonoBehaviour
+public class Player : NetworkBehaviour
 {
     [Header("External References")]
     [SerializeField] private Transform _body;
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     // Properties
     public Vector3 Position => _body.transform.position;
     public bool Ragdoll { get; set; }
+    public float PullStrength;
 
     // Component References
     [SerializeField] private HandMagnet _leftHand;

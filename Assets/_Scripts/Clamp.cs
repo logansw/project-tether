@@ -13,6 +13,7 @@ public class Clamp : MonoBehaviour
     [SerializeField] private KeyCode _actionKey;
     [SerializeField] private Rigidbody2D _rigidbody2d;
     [SerializeField] private Rigidbody2D _coreBody;
+    [SerializeField] private HandMagnet _handMagnet;
     public bool IsClamping { get; private set; }
     private bool _holdingTop;
     private Vector3[] _repeatRaycastOffsets;    // TODO: Change this to a circle collider overlap thing
@@ -48,18 +49,25 @@ public class Clamp : MonoBehaviour
         for (int i = 0; i < _repeatRaycastOffsets.Length; i++) {
             RaycastHit2D hit = Physics2D.Raycast(transform.position + _repeatRaycastOffsets[i], Vector3.forward);
 
-            if (hit && hit.collider.gameObject.layer.Equals(6)) {
-                AudioManager.s_instance.PlaySound(SoundType.Grab);
-                _rigidbody2d.bodyType = RigidbodyType2D.Static;
-                IsClamping = true;
-                return;
+            if (hit) {
+                if (hit.collider.gameObject.layer.Equals(LayerMask.NameToLayer("Holdable"))) {
+                    AudioManager.s_instance.PlaySound(SoundType.Grab);
+                    _rigidbody2d.bodyType = RigidbodyType2D.Static;
+                    IsClamping = true;
+                    _handMagnet.MagnetOn = false;
+                    return;
+                } else if (hit.collider.tag.Equals(LayerMask.NameToLayer("Player"))) {
+                    // TODO: Do something here.
+                    // TODO: What happens if a player and a hold are overlapping?
+                }
             }
         }
     }
 
     private void Release() {
-        _rigidbody2d.bodyType = RigidbodyType2D.Kinematic;
+        _rigidbody2d.bodyType = RigidbodyType2D.Dynamic;
         IsClamping = false;
         _currentHold = null;
+        _handMagnet.MagnetOn = true;
     }
 }

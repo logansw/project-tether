@@ -9,7 +9,7 @@ using UnityEngine;
 public abstract class MouseMagnet : MonoBehaviour
 {
     protected Player _player;
-    public bool magnetOn;
+    public bool MagnetOn;
 
     public void Initialize(Player player) {
         _player = player;
@@ -18,7 +18,7 @@ public abstract class MouseMagnet : MonoBehaviour
     // Update is called once per frame
     protected virtual void FixedUpdate()
     {
-        if (magnetOn && !_player.Ragdoll) {
+        if (MagnetOn && !_player.Ragdoll) {
             Magnetize();
         }
     }
